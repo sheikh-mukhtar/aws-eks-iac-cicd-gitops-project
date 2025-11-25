@@ -1,0 +1,51 @@
+- name: Roboshop SG and Rules
+  security_groups:
+  - DB:
+    - mongodb
+    - redis
+    - mysql
+    - rabbitmq
+  - APP:
+    - catalogue
+    - user
+    - cart
+    - shipping
+    - payment
+  - BACKEND_ALB:
+  - FRONTEND:
+  - FRONTEND_ALB:
+  - VPN:
+  - BASTION:
+  mongodb:
+  - name: mongodb_vpn
+    purpose: mongodb should accept traffic on 22,27017 from vpn
+  - name: mongodb_catalogue
+    purpose: mongodb should accept traffic on 27017 from catalogue
+  - name: mongodb_user
+    purpose: mongodb should accept traffic on 27017 from user
+
+  redis:
+  - name: redis_vpn
+    purpose: redis should accept traffic on 22,5679 from vpn
+  - name: redis_user
+    purpose: redis should accept traffic on 5679 from user
+  - name: redis_cart
+    purpose: redis should accept traffic on 5679 from cart
+
+  mysql:
+  - name: mysql_vpn
+    purpose: mysql should accept traffic on 22,3306 from vpn
+  - name: mysql_shipping
+    purpose: redis should accept traffic on 3306 from shipping
+
+  rabbitmq:
+  - name: rabbitmq_vpn
+    purpose: rabbitmq should accept traffic on 22,5672 from vpn
+  - name: rabbitmq_payment
+    purpose: redis should accept traffic on 5672 from payment
+
+  catalogue:
+  - name: catalogue_vpn
+    purpose: catalogue should accept traffic on 22 from vpn
+  - name: catalogue_backend_alb
+    purpose: catalogue should accept traffic on 8080 from backend_alb
