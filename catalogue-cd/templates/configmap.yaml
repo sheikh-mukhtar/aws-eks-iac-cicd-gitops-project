@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalogue
+  namespace: roboshop
+  labels:
+    component: catalogue
+    project: roboshop
+    tier: app
+data:
+  MONGO: "true"
+  #MONGO_URL: "mongodb://mongodb:27017/catalogue"
+  MONGO_URL: {{ .Values.configMap.MONGO_URL }}
