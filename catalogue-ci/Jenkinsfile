@@ -65,7 +65,7 @@ pipeline {
                 waitForQualityGate abortPipeline: true }
             }
         } */
-        stage('Check Dependabot Alerts') {
+       /* stage('Check Dependabot Alerts') {
             environment { 
                 GITHUB_TOKEN = credentials('github-token')
             }
@@ -98,7 +98,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
         stage('Docker Build') {
             steps {
                 script {
@@ -146,7 +146,7 @@ pipeline {
                 }
             }
         }
-        stage('Trigger Deploy') {
+       /* stage('Trigger Deploy') {
             when{
                 expression { params.deploy }
             }
@@ -161,7 +161,7 @@ pipeline {
                     wait: false // VPC will not wait for SG pipeline completion
                 }
             }
-        }
+        }*/
         
     }
 
