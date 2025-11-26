@@ -118,69 +118,40 @@ pipeline {
             }
         }
         stage('Check Scan Results') {
-  steps {
-    script {
-      withAWS(credentials: 'aws-creds', region: "${REGION}") {
-        // Use a bash script to handle AWS CLI errors gracefully
-        def output = sh(script: """
-          set -euo pipefail
-          REPO="${PROJECT}/${COMPONENT}"
-          TAG="${appVersion}"
-          REGION="${REGION}"
+            steps {
+                    script {
+                        withAWS(credentials: 'aws-creds', region: 'us-east-1') {
+                        // Fetch scan findings
+                            def findings = sh(
+                                script: """
+                                    aws ecr describe-image-scan-findings \
+                                    --repository-name ${PROJECT}/${COMPONENT} \
+                                    --image-id imageTag=${appVersion} \
+                                    --region ${REGION} \
+                                    --output json
+                                """,
+                                returnStdout: true
+                            ).trim()
 
-          echo "Checking image existence for ${REPO}:${TAG}..."
-          if ! aws ecr describe-images --repository-name "${REPO}" --image-ids imageTag="${TAG}" --region "${REGION}" >/dev/null 2>&1; then
-            echo "IMAGE_NOT_FOUND"
-            exit 0
-          fi
+                            // Parse JSON
+                            def json = readJSON text: findings
 
-          echo "Image exists. Starting image scan (idempotent)..."
-          aws ecr start-image-scan --repository-name "${REPO}" --image-id imageTag="${TAG}" --region "${REGION}" >/dev/null 2>&1 || true
+                            def highCritical = json.imageScanFindings.findings.findAll {
+                                it.severity == "HIGH" || it.severity == "CRITICAL"
+                            }
 
-          # Poll for scan status up to ~5 minutes
-          for i in \$(seq 1 30); do
-            status=$(aws ecr describe-image-scan-findings --repository-name "${REPO}" --image-id imageTag="${TAG}" --region "${REGION}" --query 'imageScanStatus.status' --output text 2>/dev/null || echo "MISSING")
-            echo "poll #\$i: scan status=\$status"
-            if [ "\$status" = "COMPLETE" ]; then
-              aws ecr describe-image-scan-findings --repository-name "${REPO}" --image-id imageTag="${TAG}" --region "${REGION}" --output json
-              exit 0
-            fi
-            if [ "\$status" = "IN_PROGRESS" ]; then
-              sleep 10
-              continue
-            fi
-            # missing or other, wait a bit and retry
-            sleep 5
-          done
-
-          echo "SCAN_TIMEOUT"
-          exit 0
-        """, returnStdout: true).trim()
-
-        // Handle results in Groovy
-        if (output == "IMAGE_NOT_FOUND") {
-          error("ECR image ${PROJECT}/${COMPONENT}:${appVersion} not found — fix image push.")
-        } else if (output.contains("SCAN_TIMEOUT")) {
-          error("Image scan did not finish within timeout.")
-        } else {
-          // Expect JSON output from describe-image-scan-findings
-          def json = readJSON text: output
-          def findings = json.imageScanFindings?.findings ?: []
-          def highCritical = findings.findAll { it.severity == 'HIGH' || it.severity == 'CRITICAL' }
-          if (highCritical.size() > 0) {
-            echo "❌ Found ${highCritical.size()} HIGH/CRITICAL vulnerabilities"
-            highCritical.each { f -> echo " - ${f.name ?: f.description} : ${f.severity} (${f.attributes ?: ''})" }
-            currentBuild.result = 'FAILURE'
-            error("Build failed due to HIGH/CRITICAL ECR image vulnerabilities.")
-          } else {
-            echo "✅ No HIGH/CRITICAL vulnerabilities found."
-          }
+                            if (highCritical.size() > 0) {
+                                echo "❌ Found ${highCritical.size()} HIGH/CRITICAL vulnerabilities!"
+                                currentBuild.result = 'FAILURE'
+                                error("Build failed due to vulnerabilities")
+                            } else {
+                                echo "✅ No HIGH/CRITICAL vulnerabilities found."
+                            }
+                        }
+                 }
+                 
+           } 
         }
-      } // withAWS
-    } // script
-  } // steps
-} // stage
-
        
        /* stage('Trigger Deploy') {
             when{
