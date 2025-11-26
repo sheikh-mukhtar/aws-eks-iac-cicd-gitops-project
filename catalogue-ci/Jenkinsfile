@@ -20,13 +20,12 @@ pipeline {
     stages {
         stage('Read package.json') {
             steps {
-                dir('catalogue-ci') {
                     script {
                         def packageJson = readJSON file: 'package.json'
                         appVersion = packageJson.version
                         echo "Package version: ${appVersion}"
                     }
-                }    
+                   
             }
         }
         stage('Install Dependencies') {
