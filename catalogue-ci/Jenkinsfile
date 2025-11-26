@@ -119,7 +119,6 @@ pipeline {
         }
         stage('Check Scan Results') {
             steps {
-                dir('catalogue-ci') {
                     script {
                         withAWS(credentials: 'aws-creds', region: 'us-east-1') {
                         // Fetch scan findings
@@ -149,9 +148,9 @@ pipeline {
                                 echo "✅ No HIGH/CRITICAL vulnerabilities found."
                             }
                         }
-                    }
                  }
-            } 
+                 
+           } 
         }
        
        /* stage('Trigger Deploy') {
