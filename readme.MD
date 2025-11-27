@@ -133,10 +133,10 @@ Centralized Groovy library for all pipelines.
 
 ▶️ How to Run the Entire Project
 1️⃣ Create AWS infrastructure
-````
+
 cd terraform-aws-eks
 terraform apply
-```
+
 2️⃣ Install Jenkins + ArgoCD
 
 Follow outputs from Terraform.
