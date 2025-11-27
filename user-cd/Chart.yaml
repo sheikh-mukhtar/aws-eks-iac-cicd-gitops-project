@@ -1,0 +1,5 @@
+apiVersion: v2
+name: user
+version: 1.0.0 # chart version
+description: user helm chart description
+appVersion: v1 # application version

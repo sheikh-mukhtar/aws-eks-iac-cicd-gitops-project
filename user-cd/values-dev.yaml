@@ -1,0 +1,6 @@
+deployment:
+  imageURL: 315069654700.dkr.ecr.us-east-1.amazonaws.com/roboshop/user
+  imageVersion: IMAGE_VERSION
+hpa:
+  maxReplicas: 10
+  utilisation: 75
