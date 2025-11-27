@@ -112,3 +112,65 @@ Zero manual deployment. Pure GitOps.
 | **Payment**   | Payment processing simulation |
 | **Shipping**  | Shipment calculation backend  |
 | **Frontend**  | UI for the entire store       |
+
+
+## 📁 Folder-by-Folder Explanation
+terraform-aws-eks/
+
+Complete AWS infrastructure (network + EKS).
+
+_*-ci/ (cart-ci, catalogue-ci, user-ci, etc.)
+
+Jenkins pipelines for each microservice.
+
+user-cd/, cart-shipping-payment-frontend-ArgoCD/
+
+ArgoCD application definitions + K8s manifests.
+
+jenkins-shared-library/
+
+Centralized Groovy library for all pipelines.
+
+▶️ How to Run the Entire Project
+1️⃣ Create AWS infrastructure
+````
+cd terraform-aws-eks
+terraform apply
+```
+2️⃣ Install Jenkins + ArgoCD
+
+Follow outputs from Terraform.
+
+3️⃣ Run CI pipeline for any service
+
+This builds & pushes Docker image.
+
+4️⃣ ArgoCD automatically deploys to EKS
+
+GitOps ensures automatic sync.
+
+## 🎯 Outcomes of This Project
+
+### You demonstrate:
+
+🔥 AWS Infrastructure (VPC, EKS, IAM)
+🔥 Strong Terraform IaC skills
+🔥 Production-grade CI/CD pipelines
+🔥 Microservices & Dockerization
+🔥 GitOps with ArgoCD
+🔥 Kubernetes deployment expertise
+🔥 Jenkins Shared Library usage
+
+This is a full real-world DevOps skillset in one repo.
+
+## 📞 Contact
+
+* Mukhtar Buddabai Gari
+* Aspiring DevOps Engineer
+```
+📧 mukhtarsheikhh05@gmail.com
+
+🔗 GitHub: https://github.com/sheikh-mukhtar
+
+🔗 LinkedIn: https://linkedin.com/in/mukhtarsheikh
+```
