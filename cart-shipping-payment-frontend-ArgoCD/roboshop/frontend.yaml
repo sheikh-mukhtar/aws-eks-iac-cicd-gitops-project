@@ -124,7 +124,6 @@ metadata:
     project: roboshop
     tier: web
 spec:
-  type: LoadBalancer
   selector:
     component: frontend
     project: roboshop
@@ -133,3 +132,14 @@ spec:
   - protocol: TCP
     port: 80 # service port
     targetPort: 8080 # container port
+---
+apiVersion: elbv2.k8s.aws/v1beta1
+kind: TargetGroupBinding
+metadata:
+  name: frontend
+  namespace: roboshop
+spec:
+  serviceRef:
+    name: frontend # route traffic to the awesome-service
+    port: 80
+  targetGroupARN: arn:aws:elasticloadbalancing:us-east-1:315069654700:targetgroup/roboshop-dev-frontend/adeb3f8866bb6d81
