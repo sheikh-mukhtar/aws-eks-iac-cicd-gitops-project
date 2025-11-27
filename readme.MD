@@ -101,3 +101,14 @@ ArgoCD pulls Kubernetes manifests from this repo and deploys to EKS automaticall
 5️⃣ ArgoCD syncs & deploys new version to EKS
 
 Zero manual deployment. Pure GitOps.
+
+## 📦 Microservices Included
+
+| Service       | Description                   |
+| ------------- | ----------------------------- |
+| **Catalogue** | Product listing backend       |
+| **Cart**      | User shopping cart            |
+| **User**      | Authentication service        |
+| **Payment**   | Payment processing simulation |
+| **Shipping**  | Shipment calculation backend  |
+| **Frontend**  | UI for the entire store       |
