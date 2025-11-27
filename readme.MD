@@ -15,7 +15,7 @@
 * Microservices deployment (Cart, Catalogue, User, Payment, Shipping, Frontend)
 
 * It simulates a real e-commerce platform (Roboshop) and demonstrates how modern teams deploy & manage cloud applications end-to-end.
-![Architecture](image.png) 
+![Architecture](roboshop.svg) 
 
 ## 🏗️ Tech Stack
 
