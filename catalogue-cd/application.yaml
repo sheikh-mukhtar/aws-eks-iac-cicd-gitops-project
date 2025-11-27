@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default # The Argo CD Project this application belongs to
   source:
-    repoURL: https://github.com/daws-84s/catalogue-cd.git
+    repoURL: https://github.com/sheikh-mukhtar/aws-eks-iac-cicd-gitops-project.git
     targetRevision: main
-    path: .
+    path: catalogue-cd
     helm:
       releaseName: catalogue
       valueFiles:
