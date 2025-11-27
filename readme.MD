@@ -1,6 +1,6 @@
-##🚀 AWS EKS | Terraform | Jenkins CI/CD | ArgoCD GitOps — End-to-End DevOps Project
+## 🚀 AWS EKS | Terraform | Jenkins CI/CD | ArgoCD GitOps — End-to-End DevOps Project
 
-*This repository contains a fully automated production-ready DevOps setup built using:
+# This repository contains a fully automated production-ready DevOps setup built using:
 
 *Infrastructure as Code (Terraform)
 
