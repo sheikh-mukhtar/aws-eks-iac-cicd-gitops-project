@@ -36,7 +36,7 @@ ArgoCD for GitOps-based deployment to EKS
 Microservices deployed as Kubernetes manifests
 
 ## 🏗️ Project Structure
-
+' ' 'json
 aws-eks-iac-cicd-gitops-project/
 │── terraform-aws-eks/              # Complete AWS Infrastructure (VPC, EKS, IAM)
 │── terraform-jenkins-agent-setup/  # Jenkins agent setup using Terraform
@@ -49,7 +49,7 @@ aws-eks-iac-cicd-gitops-project/
 │── user-cd/                        # ArgoCD Kubernetes manifests
 │── cart-shipping-payment-frontend-ArgoCD/
 │── jenkins-shared-library/         # Reusable CI functions
-
+' ' '
 
 ## ⚙️ Infrastructure (IaC) – Terraform
 
