@@ -118,6 +118,7 @@ ArgoCD pulls Kubernetes manifests from this repo and deploys to EKS automaticall
 
 Zero manual deployment. Pure GitOps.
 
+![Architecture](image.png) 
 ## 📦 Microservices Included
 
 | Service       | Description                   |
