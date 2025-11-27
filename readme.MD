@@ -71,4 +71,33 @@ Jenkins agent setup (EC2)
 ```md
 terraform init
 terraform apply -auto-approve
-```md
+```
+
+ ## 🛠️ CI/CD With Jenkins
+
+### Each microservice has its own Jenkins pipeline:
+
+✔ Builds Docker image
+✔ Tags image with version
+✔ Pushes to AWS ECR
+✔ Updates ArgoCD manifests repo (GitOps flow)
+
+Shared Library
+
+Reusable Groovy functions stored in:
+```
+jenkins-shared-library/vars/
+```
+🚀 GitOps With ArgoCD (CD Layer)
+
+ArgoCD pulls Kubernetes manifests from this repo and deploys to EKS automatically.
+
+## Flow:
+
+1️⃣ Developer pushes code
+2️⃣ Jenkins builds & pushes image
+3️⃣ Jenkins updates manifest image: <new-tag>
+4️⃣ ArgoCD detects Git change
+5️⃣ ArgoCD syncs & deploys new version to EKS
+
+Zero manual deployment. Pure GitOps.
