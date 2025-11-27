@@ -17,6 +17,20 @@
 * It simulates a real e-commerce platform (Roboshop) and demonstrates how modern teams deploy & manage cloud applications end-to-end.
 ![Architecture](image.png) ![Architecture](image-1.png)
 
+## 🏗️ Tech Stack
+
+| Component         | Tool                              |
+| ----------------- | --------------------------------- |
+| Cloud             | AWS (EKS, EC2, VPC, IAM, ECR, S3) |
+| IaC               | Terraform                         |
+| Automation        | Shell Scripting                   |
+| Config Management | Ansible                           |
+| Containerization  | Docker                            |
+| Orchestration     | Kubernetes                        |
+| CI/CD             | Jenkins                           |
+| GitOps            | ArgoCD                            |
+| Repo              | GitHub                            |
+
 
 ## This project implements:
 
@@ -66,6 +80,8 @@ ECR Repositories
 IAM Roles & Policies
 
 Jenkins agent setup (EC2)
+
+![Architecture](image-1.png)
 
 ## Commands to deploy:
 ```md
